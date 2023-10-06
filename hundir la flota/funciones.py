@@ -139,19 +139,38 @@ def crear_barcos_jugador2(campo_jugador2):
     return "Jugador 2 creado con exito."
 
 
-def disparo(tablero, direccion, coord1,coord2):
+def disparo(jugador, direccion, coord1,coord2):
 
     if direccion == 0:
-        if tablero.campo[coord1,coord2] == "O":
+        if jugador.campo[coord1,coord2] == "O":
             print("GOLPEEEEEEE! TIRA DE NUEVO")
-            tablero.campo[coord1,coord2] = "X"
-            return 1
-        elif tablero.campo[coord1,coord2] == "X" or tablero.campo[coord1,coord2] == "_":
+            jugador.campo[coord1,coord2] = "X"
+            print(jugador.campo)
+            jugador.vidas_totales -=1
+            if jugador.vidas_totales == 0:
+                return 0
+            else:
+                return 1
+        elif jugador.campo[coord1,coord2] == "X" or jugador.campo[coord1,coord2] == "_":
             print("Zona ya intentada/golpeada")
             return 1
         else:
             print("Agua, HAS FALLDO HAHAHAHAHAHAAHAAHAHAHHA")
-            tablero.campo[coord1,coord2] = "_"
+            jugador.campo[coord1,coord2] = "_"
+            return 0
+        
+    if direccion == 1:
+        if jugador.campo[coord1,coord2] == "O":
+            jugador.campo[coord1,coord2] = "X"
+            jugador.vidas_totales -=1
+            if jugador.vidas_totales == 0:
+                return 0
+            else:
+                return 1
+        elif jugador.campo[coord1,coord2] == "X" or jugador.campo[coord1,coord2] == "_":
+            return 1
+        else:
+            jugador.campo[coord1,coord2] = "_"
             return 0
 
 
