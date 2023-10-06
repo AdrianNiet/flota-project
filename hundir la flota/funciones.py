@@ -137,3 +137,21 @@ def crear_barcos_jugador2(campo_jugador2):
         bucle = campo_jugador2.insertar_barco(jugador_2_barco4.coordenadas,jugador_2_barco4.vidas)
 
     return "Jugador 2 creado con exito."
+
+
+def disparo(tablero, direccion, coord1,coord2):
+
+    if direccion == 0:
+        if tablero.campo[coord1,coord2] == "O":
+            print("GOLPEEEEEEE! TIRA DE NUEVO")
+            tablero.campo[coord1,coord2] = "X"
+            return 1
+        elif tablero.campo[coord1,coord2] == "X" or tablero.campo[coord1,coord2] == "_":
+            print("Zona ya intentada/golpeada")
+            return 1
+        else:
+            print("Agua, HAS FALLDO HAHAHAHAHAHAAHAAHAHAHHA")
+            tablero.campo[coord1,coord2] = "_"
+            return 0
+
+
