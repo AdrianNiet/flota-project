@@ -11,8 +11,9 @@ niebla = clases.Niebla_de_guerra
 #Aqui generamos numero aleatorio.
 orientacion = random.randint(1,4)
 #Aqui, generamos un barco con 1 vida.
-barco1= clases.Barco(1,orientacion)
+barco1 = clases.Barco(1,orientacion)
 #Repetimos para todos los barcos.
+#Para crear los objetos no es necesario preocuparse por el orden, eso al meterlos
 orientacion = random.randint(1,4)
 barco1_1 = clases.Barco(1,orientacion)
 orientacion = random.randint(1,4)

@@ -52,6 +52,7 @@ def disparo(jugador, direccion, coord1,coord2,niebla):
         else:
             print("Agua, HAS FALLDO HAHAHAHAHAHAAHAAHAHAHHA")
             time.sleep(1)
+            #Aqui tenemos un ejemplo, actualizamos ambos campos, pero solo se mostrara niebla.
             jugador.campo[coord1,coord2] = "_"
             niebla[coord1,coord2] = "_"
             return 0

@@ -14,29 +14,30 @@ from variables import *
 import time
 
 #Creamos los barcos para cada jugador, para seguir el flujo, ve a la funcion crear_barcos.
+#IMPORTANTE: ES MAS EFICIENTE METER LOS BARCOS GRANDES EN UN TABLERO LIMPIO.
+crear_barcos_jugador(campo_jugador1,barco4)
+crear_barcos_jugador(campo_jugador1,barco3_1)
+crear_barcos_jugador(campo_jugador1,barco3_2)
+crear_barcos_jugador(campo_jugador1,barco2_1)
+crear_barcos_jugador(campo_jugador1,barco2_2)
+crear_barcos_jugador(campo_jugador1,barco2_3)
 crear_barcos_jugador(campo_jugador1,barco1_1)
 crear_barcos_jugador(campo_jugador1,barco1_2)
 crear_barcos_jugador(campo_jugador1,barco1_3)
 crear_barcos_jugador(campo_jugador1,barco1_4)
-crear_barcos_jugador(campo_jugador1,barco2_1)
-crear_barcos_jugador(campo_jugador1,barco2_2)
-crear_barcos_jugador(campo_jugador1,barco2_3)
-crear_barcos_jugador(campo_jugador1,barco3_1)
-crear_barcos_jugador(campo_jugador1,barco3_2)
-crear_barcos_jugador(campo_jugador1,barco4)
 
 #Ahora los basrcos para jugador 2.
 
+crear_barcos_jugador(campo_jugador2,barco4)
+crear_barcos_jugador(campo_jugador2,barco3_1)
+crear_barcos_jugador(campo_jugador2,barco3_2)
+crear_barcos_jugador(campo_jugador2,barco2_1)
+crear_barcos_jugador(campo_jugador2,barco2_2)
+crear_barcos_jugador(campo_jugador2,barco2_3)
 crear_barcos_jugador(campo_jugador2,barco1_1)
 crear_barcos_jugador(campo_jugador2,barco1_2)
 crear_barcos_jugador(campo_jugador2,barco1_3)
 crear_barcos_jugador(campo_jugador2,barco1_4)
-crear_barcos_jugador(campo_jugador2,barco2_1)
-crear_barcos_jugador(campo_jugador2,barco2_2)
-crear_barcos_jugador(campo_jugador2,barco2_3)
-crear_barcos_jugador(campo_jugador2,barco3_1)
-crear_barcos_jugador(campo_jugador2,barco3_2)
-crear_barcos_jugador(campo_jugador2,barco4)
 
 #creamos la niebla de guerra.
 modo_juego = 4
@@ -49,9 +50,9 @@ while not(modo_juego == 1 or modo_juego == 2 or modo_juego == 0):
         modo_juego = int(input("----->    "))
     except:
         print("SOLO NUMEROS POR FAVOR.")
-
+#Si en tal caso, el usuario no quiere jugar, salimos sin crear el juego.
 if modo_juego != 0:
-    #Si en tal caso, el usuario no quiere jugar, salimos sin crear el juego.
+    #SI se quiere jugar, se crea el juego.
     juego = clases.Juego(modo_juego)
     #Esto lo pongo para que parezca que se toma su tiempo, y no ponga toda la informacion tan de golpe.
     print("Matando cucarachas...")

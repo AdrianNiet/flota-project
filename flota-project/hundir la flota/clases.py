@@ -88,7 +88,7 @@ class Barco:
     
 
 
-
+#-----------------------------------------TABLEROS DE AMBOS JUGADORES----------------------------------------------------
 class Tablero_jugador_1:
     #creamos el tablero del jugador 1, todo lleno de ?
     id = "JUGADOR 1"
@@ -130,22 +130,23 @@ class Tablero_jugador_2:
             self.campo[i,j] = "O"
         self.vidas_totales = self.vidas_totales + vidas
         return 0
-
+#------------------------------------------------Niebla de guerra-------------------------------------
 class Niebla_de_guerra:
 
     niebla1 = np.full((10,10), "?")
     niebla2 = np.full((10,10), "?")
 
+#------------------------------------------------Clase juego-------------------------------------------
+
 class Juego:
 
-    orden = 0
-
     def __init__(self, modo):
-
+        #Modo se utiliza para saber si el metodo jugando tiene que pasar por la parte de la IA o no.
         self.modo = modo
 
     def jugando(self,jugador1,jugador2,niebla):
-        #Modo = 1 es para jugador contra IA
+
+#------------------------------Modo = 1 es para jugador contra IA---------------------------------------------
         if self.modo == 1:
             while True:
                 #Aqui nos aseguramos de que se ponen coordenadas coherentes.
@@ -166,6 +167,7 @@ class Juego:
                 while check == 1:
                     #Pedimos input al usuario, podemos hacerlo entre 1 y 10 por facilidad para ver el tablero.
                     posicion = input("Introduce coordenada: ")
+                    #Match para los comandos, basicamente algo de info o si se quiere salir del juego.
                     match posicion:
                         case "tutorial":
                             print("Dispara a una coordenada, si aciertas te toca de nuevo.\n",
@@ -206,13 +208,13 @@ class Juego:
                                     print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
                             else:
                                 print("POR FAVOR, INTRODUCE NUMEROS EN FORMATO X,X")
-                        #esta parte es solo para terminar el juego segun quien ha ganado.
+                #Esta parte es solo para terminar el juego segun quien ha ganado.
                 if jugador2.vidas_totales == 0:
                     print(jugador1.vidas_totales)
                     print(jugador1.campo)
                     print(jugador2.vidas_totales)
                     print(jugador2.campo)
-                    print("JUGADOR1 HA GANADO!!!")
+                    print(f"{jugador1.id} HA GANADO!!!")
                     break
                 print("Le toca a CHATGPT...")
                 time.sleep(1)
@@ -224,16 +226,18 @@ class Juego:
                     segunda = random.randint(0,9)
                     check = disparo(jugador1,2,primera,segunda,niebla.niebla2)
                 print("Turno de CHATGPT finalizado, imprimiendo tablero...")
-                #------------------------------------------------------
-                print(jugador1.vidas_totales)
+                #Imprimimos el estado del tablero.
+                print(f" vidas restantes de {jugador1.id}: {jugador1.vidas_totales}")
                 print(jugador1.campo)
-                print("-----------------------------------------------------")
+                print("--------------------------Tablero de la IA---------------------------")
+                time.sleep(1)
+                print(f"vidas restantes de la IA: {jugador2.vidas_totales}")
                 print(niebla.niebla1)
                 if jugador1.vidas_totales == 0:
-                    print("JUGADOR 2 HA GANADO!!!!")
+                    print(f"{jugador2.id} HA GANADO!!!!")
                     break
 
-
+#----------------------------------------------AQUI tenemos 1vs1
 
         #Modo = 2 es jugador contra jugador.
         if self.modo == 2:
@@ -249,28 +253,51 @@ class Juego:
                     posicion = input("Introduce coordenada: ")
                     print("Comprobando disparo...")
                     time.sleep(1)
-                    coordenada = posicion.split(",")
-                    if len(coordenada) == 2:
-                        try:
-                            if int(coordenada[0]) <= 10 or int(coordenada[1]) >= 0 and int(coordenada[1]) <= 10 or int(coordenada[0]) >= 0:
-                                primera = int(coordenada[0])-1
-                                segunda = int(coordenada[1])-1
-                                check = disparo(jugador2,1,primera,segunda,niebla.niebla1)
+                    match posicion:
+                        case "tutorial":
+                            print("Dispara a una coordenada, si aciertas te toca de nuevo.\n",
+                                  "Los barcos se han posicionado de forma aleatoria.\n",
+                                  "Usa tu ingenio para hundirlos todos antes que la IA.")
+                        case "tablero":
+                            print("imprimiendo tableros...")
+                            time.sleep(1)
+                            print("Tablero jugador1")
+                            print(niebla.niebla1)
+                            time.sleep(1)
+                            print("Tablero jugador2")
+                            print(niebla.niebla2)
+                            time.sleep(1)
+                        case "comandos":
+                            print("los comandos son: \n tablero \n tutorial \n salir")
+                        case "salir":
+                            print("Partida terminada...")
+                            time.sleep(1)
+                            return 0
+                        case other:
+                            coordenada = posicion.split(",")
+                            if len(coordenada) == 2:
+                                try:
+                                    if int(coordenada[0]) <= 10 or int(coordenada[1]) >= 0 and int(coordenada[1]) <= 10 or int(coordenada[0]) >= 0:
+                                        primera = int(coordenada[0])-1
+                                        segunda = int(coordenada[1])-1
+                                        check = disparo(jugador2,1,primera,segunda,niebla.niebla1)
+                                    else:
+                                        print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
+                                except:
+                                    print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
                             else:
-                                print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
-                        except:
-                            print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
-                    else:
-                        print("POR FAVOR, INTRODUCE NUMEROS EN FORMATO X,X")
+                                print("POR FAVOR, INTRODUCE NUMEROS EN FORMATO X,X")
+                #Fin de match case
                 if jugador2.vidas_totales == 0:
-                    print(jugador1.vidas_totales)
+                    print(f" vidas restantes de {jugador1.id}: {jugador1.vidas_totales}")
                     print(jugador1.campo)
-                    print(jugador2.vidas_totales)
+                    print(f" vidas restantes de {jugador2.id}: {jugador2.vidas_totales}")
                     print(jugador2.campo)
-                    print("JUGADOR1 HA GANADO!!!")
+                    print(f"{jugador1.id} HA GANADO!!!")
                     break
-                #Ahora, cambiamos lo necesario para jugador 2.
-                print("Turno de jugador 2...")
+#---------------------------------------Ahora, cambiamos lo necesario para jugador 2.-------------------------------
+                #IMPORTANTE, esta parte es la misma que para jugador 1, solo cambian detalles.
+                print(f"Turno de {jugador2.id}...")
                 time.sleep(1)
                 posicion = 0
                 coordenada = []
@@ -281,30 +308,52 @@ class Juego:
                     posicion = input("Introduce coordenada: ")
                     print("Comprobando disparo...")
                     time.sleep(1)
-                    coordenada = posicion.split(",")
-                    if len(coordenada) == 2:
-                        try:
-                            if int(coordenada[0]) <= 10 or int(coordenada[1]) >= 0 and int(coordenada[1]) <= 10 or int(coordenada[0]) >= 0:
-                                primera = int(coordenada[0])-1
-                                segunda = int(coordenada[1])-1
-                                #cambiamos jugador2 por jugador 1
-                                check = disparo(jugador1,1,primera,segunda,niebla.niebla2)
+                    match posicion:
+                        case "tutorial":
+                            print("Dispara a una coordenada, si aciertas te toca de nuevo.\n",
+                                  "Los barcos se han posicionado de forma aleatoria.\n",
+                                  "Usa tu ingenio para hundirlos todos antes que la IA.")
+                        case "tablero":
+                            print("imprimiendo tableros...")
+                            time.sleep(1)
+                            print("Tablero jugador1")
+                            print(niebla.niebla1)
+                            time.sleep(1)
+                            print("Tablero jugador2")
+                            print(niebla.niebla2)
+                            time.sleep(1)
+                        case "comandos":
+                            print("los comandos son: \n tablero \n tutorial \n salir")
+                        case "salir":
+                            print("Partida terminada...")
+                            time.sleep(1)
+                            return 0
+                        case other:
+                            coordenada = posicion.split(",")
+                            if len(coordenada) == 2:
+                                try:
+                                    if int(coordenada[0]) <= 10 or int(coordenada[1]) >= 0 and int(coordenada[1]) <= 10 or int(coordenada[0]) >= 0:
+                                        primera = int(coordenada[0])-1
+                                        segunda = int(coordenada[1])-1
+                                        #cambiamos jugador2 por jugador 1
+                                        check = disparo(jugador1,1,primera,segunda,niebla.niebla2)
+                                    else:
+                                        print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
+                                except:
+                                    print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
                             else:
-                                print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
-                        except:
-                            print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
-                    else:
-                        print("POR FAVOR, INTRODUCE NUMEROS EN FORMATO X,X")
+                                print("POR FAVOR, INTRODUCE NUMEROS EN FORMATO X,X")
+                #FIN DEL MATCH CASE
                 if jugador1.vidas_totales == 0:
-                    print(jugador1.vidas_totales)
+                    print(f" vidas restantes de {jugador1.id}: {jugador1.vidas_totales}")
                     print(jugador1.campo)
-                    print(jugador2.vidas_totales)
+                    print(f" vidas restantes de {jugador2.id}: {jugador2.vidas_totales}")
                     print(jugador2.campo)
-                    print("JUGADOR1 HA GANADO!!!")
+                    print(f"{jugador2.py} HA GANADO!!!")
                     break
                 print("Imprimiendo nieblas de guerra...")
                 time.sleep(1)
-                print(jugador1.vidas_totales)
+                print(f" vidas restantes de {jugador1.id}: {jugador1.vidas_totales}")
                 print(niebla.niebla1)
-                print(jugador2.vidas_totales)
+                print(f" vidas restantes de {jugador2.id}: {jugador2.vidas_totales}")
                 print(niebla.niebla2)
