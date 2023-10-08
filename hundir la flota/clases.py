@@ -91,6 +91,7 @@ class Barco:
 
 class Tablero_jugador_1:
     #creamos el tablero del jugador 1, todo lleno de ?
+    id = "JUGADOR 1"
     campo = np.full((10,10), "?")
     #Esta variable es la suma de todas las vidas de los barcos.
     vidas_totales = 0
@@ -116,6 +117,7 @@ class Tablero_jugador_1:
     
 class Tablero_jugador_2:
     #Lo mismo que antes, por comodidad en el manejo, tenemos otra clase de jugador 2.
+    id = "JUGADOR 2"
     campo = np.full((10,10), "?")
     vidas_totales = 0
     def insertar_barco(self, coord, vidas):
@@ -151,7 +153,8 @@ class Juego:
                 #no causen problemas a la hora de probar las coordenadas luego.
                 posicion = 0
                 time.sleep(1)
-                print("INSTRUCCIONES DE COORDENADAS: iNTRODUCE EN FORMATO X,X.")
+                print("INSTRUCCIONES DE COORDENADAS: iNTRODUCE EN FORMATO X,X.\n",
+                      "Escribe tutorial o comandos, para obtener info.")
                 coordenada = []
                 #en lugar de fila y columna, es primero y segundo, no quiero repetir nombres de varaiables.
                 primera = 0
@@ -163,26 +166,47 @@ class Juego:
                 while check == 1:
                     #Pedimos input al usuario, podemos hacerlo entre 1 y 10 por facilidad para ver el tablero.
                     posicion = input("Introduce coordenada: ")
-                    print("Comprobando disparo...")
-                    time.sleep(1)
-                    #usamos split para comvertirlo en lista con 2 valores.
-                    coordenada = posicion.split(",")
-                    #si tenemos dos valores comprobamos que esten entre1 y 10.
-                    if len(coordenada) == 2:
-                        try:
-                            if int(coordenada[0]) <= 10 or int(coordenada[1]) >= 0 and int(coordenada[1]) <= 10 or int(coordenada[0]) >= 0:
-                                primera = int(coordenada[0])-1
-                                segunda = int(coordenada[1])-1
-                                #aqui llamamos a la funcion de disparo.
-                                #devuelve 1 si la zona ya esta marcada, 0 si es valido, ademas actualiza el tablero.
-                                check = disparo(jugador2,1,primera,segunda,niebla.niebla1)
+                    match posicion:
+                        case "tutorial":
+                            print("Dispara a una coordenada, si aciertas te toca de nuevo.\n",
+                                  "Los barcos se han posicionado de forma aleatoria.\n",
+                                  "Usa tu ingenio para hundirlos todos antes que la IA.")
+                        case "tablero":
+                            print("imprimiendo tableros...")
+                            time.sleep(1)
+                            print("Tablero jugador1")
+                            print(niebla.niebla1)
+                            time.sleep(1)
+                            print("Tablero jugador2")
+                            print(niebla.niebla2)
+                            time.sleep(1)
+                        case "comandos":
+                            print("los comandos son: \n tablero \n tutorial \n salir")
+                        case "salir":
+                            print("Partida terminada...")
+                            time.sleep(1)
+                            return 0
+                        case other:
+                            print("Comprobando disparo...")
+                            time.sleep(1)
+                            #usamos split para comvertirlo en lista con 2 valores.
+                            coordenada = posicion.split(",")
+                            #si tenemos dos valores comprobamos que esten entre 1 y 10.
+                            if len(coordenada) == 2:
+                                try:
+                                    if (int(coordenada[0]) <= 10 and int(coordenada[0]) > 0) and (int(coordenada[1]) <= 10 and int(coordenada[1]) > 0):
+                                        primera = int(coordenada[0])-1
+                                        segunda = int(coordenada[1])-1
+                                        #aqui llamamos a la funcion de disparo.
+                                        #devuelve 1 si la zona ya esta marcada, 0 si es valido, ademas actualiza el tablero.
+                                        check = disparo(jugador2,1,primera,segunda,niebla.niebla1)
+                                    else:
+                                        print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
+                                except:
+                                    print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
                             else:
-                                print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
-                        except:
-                            print("POR FAVOR, INTRODUCE NUMEROS ENTRE 1 y 10")
-                    else:
-                        print("POR FAVOR, INTRODUCE NUMEROS EN FORMATO X,X")
-                #esta parte es solo para terminar el juego segun quien ha ganado.
+                                print("POR FAVOR, INTRODUCE NUMEROS EN FORMATO X,X")
+                        #esta parte es solo para terminar el juego segun quien ha ganado.
                 if jugador2.vidas_totales == 0:
                     print(jugador1.vidas_totales)
                     print(jugador1.campo)
@@ -200,6 +224,8 @@ class Juego:
                 print("Turno de IA finalizado, imprimiendo tablero...")
                 #------------------------------------------------------
                 print(jugador1.vidas_totales)
+                print(jugador1.campo)
+                print("-----------------------------------------------------")
                 print(niebla.niebla1)
                 if jugador1.vidas_totales == 0:
                     print("JUGADOR 2 HA GANADO!!!!")
