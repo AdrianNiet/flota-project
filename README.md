@@ -1,4 +1,4 @@
-# flota-project
+<span style="color: blue;"> ### Proyecto undir la flota</span>
 Juego de undir la flota, primer projecto del Bootcamp de DataScience en Thebridge.
 
 ### 1. ¿Para que era este proyecto?
@@ -13,5 +13,5 @@ o incluso, puedes jugar contra otro jugador en un apasionante combate por turnos
 
 ### 3. ¿Cual era el objetivo?
 
-Demostrar que he dominado las bases de python y ver como me ejecuto en un proyecto que engloba todo lo que es las bases de python.
-He podido crear el juego con clases, en diferentes ficheros y combinandolos con el correspodiente import y creando un juego que se puede jugar de principio a fin.
+Demostrar que he dominado las bases de python y ver como me ejecuto en un proyecto que pide saber de las bases mencionadas.
+He podido crear el juego con clases, en diferentes fichero, combinandolos con el correspodiente import y creando un juego que se puede jugar de principio a fin.
