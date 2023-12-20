@@ -1,8 +1,4 @@
-<span style="color: blue; font-size: 24px;"> <h3>Proyecto undir la flota</h3></span>
-
-<span style="color: blue;">Proyecto undir la flota</span>
-
-Juego de undir la flota, primer projecto del Bootcamp de DataScience en Thebridge.
+### Proyecto Undir la Flota
 
 ### 1. ¿Para que era este proyecto?
 El objetivo de este proyecto consistia en crear un codigo para poder jugar al famoso juego de Undir la Flota.
