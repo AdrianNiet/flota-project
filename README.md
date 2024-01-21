@@ -14,3 +14,8 @@ o incluso, puedes jugar contra otro jugador en un apasionante combate por turnos
 
 Demostrar que he dominado las bases de python y ver como me ejecuto en un proyecto que pide saber de las bases mencionadas.
 He podido crear el juego con clases, en diferentes fichero, combinandolos con el correspodiente import y creando un juego que se puede jugar de principio a fin.
+
+### Estructura.
+
+- Dentro de la carpeta hay 2 versiones, la versión demo que es un modelo editado para testear el juego.
+- Modelo funcional con el que se puede jugar una partida contra la IA o contra otro jugador.
